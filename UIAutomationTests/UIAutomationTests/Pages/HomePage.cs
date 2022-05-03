@@ -9,8 +9,7 @@ namespace UIAutomationTests.Pages
         public HomePage(BrowserContext context) : base(context)
         {
         }
-
-        private IWebElement PlanMyJourney => Context.Driver.FindElement(By.Id("plan-journey-button"));
+        
         private IWebElement AcceptAllCookiesButton => Context.Driver.FindElement(By.Id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"));
         private IWebElement CookieDoneButton => Context.Driver.FindElement(By.XPath("//button[contains(@onclick,'endCookieProcess')]"));
         private IWebElement RecentTabLink => Context.Driver.FindElement(By.Id("jp-recent-tab-home"));
@@ -27,7 +26,7 @@ namespace UIAutomationTests.Pages
 
         public HomePage PlanJourneyWithoutLocations()
         {
-            PlanMyJourney.Click();
+            PlanJourneyButton.Click();
             return this;
         }
 
@@ -35,13 +34,13 @@ namespace UIAutomationTests.Pages
         {
             InputJourneyFrom(to, false);
             InputJourneyTo(from, false);
-            PlanMyJourney.Click();
+            PlanJourneyButton.Click();
             return this;
         }
 
         public JourneyResultsPage SubmitJourney()
         {
-            PlanMyJourney.Click();
+            PlanJourneyButton.Click();
             WebDriverWait.Until(_ => PageInReadyState);
             return new JourneyResultsPage(Context);
         }
@@ -49,6 +48,7 @@ namespace UIAutomationTests.Pages
         public HomePage NavigateToHomePage()
         {
             HomePageLink.Click();
+            WebDriverWait.Until(_ => PageInReadyState);
             return this;
         } 
          

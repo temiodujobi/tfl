@@ -20,10 +20,11 @@ namespace UIAutomationTests.Pages
         protected IWebElement StartFieldDataSet => Context.Driver.FindElement(By.Id("InputFrom-dropdown"));
         protected IWebElement DestinationFieldDataSet => Context.Driver.FindElement(By.Id("InputTo-dropdown"));
         protected IWebElement HomePageLink => Context.Driver.FindElement(By.ClassName("tfl-name"));
+        protected IWebElement PlanJourneyButton => Context.Driver.FindElement(By.Id("plan-journey-button"));
 
         public string PageTitleText => Context.Driver.Title;
 
-        public WebDriverWait WebDriverWait => new(Context.Driver, TimeSpan.FromSeconds(20));
+        public WebDriverWait WebDriverWait => new(Context.Driver, TimeSpan.FromSeconds(60));
 
         protected void InputJourneyFrom(string start, bool waitForSearchResult = true)
         {
@@ -58,5 +59,4 @@ namespace UIAutomationTests.Pages
             }
         }
     }
-
 }

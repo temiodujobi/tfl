@@ -12,10 +12,20 @@ namespace UIAutomationTests.Pages
         private IWebElement EditJourney => Context.Driver.FindElement(By.ClassName("edit-journey"));
         private IWebElement UpdateJourneyButton => Context.Driver.FindElement(By.Id("plan-journey-button"));
         private IWebElement ClearToLocation => Context.Driver.FindElement(By.XPath("//a[contains(text(),'Clear To location')]"));
+        private IWebElement ErrorMessage => Context.Driver.FindElement(By.CssSelector("ul.field-validation-errors>li"));
         private IWebElement JourneyResultSummaryFrom =>
             Context.Driver.FindElement(By.ClassName("journey-result-summary"));
-       public string ResultPageHeading => Context.Driver.FindElement(By.ClassName("jp-results-headline")).Text;
-        public string InvalidJourneyResultMessage => Context.Driver.FindElement(By.CssSelector("ul.field-validation-errors>li")).Text;
+
+        public string ResultPageHeading => Context.Driver.FindElement(By.ClassName("jp-results-headline")).Text;
+
+        public string InvalidJourneyResultMessage
+        {
+            get
+            {
+                WebDriverWait.Until(_ => PageInReadyState && ErrorMessage.Displayed);
+                return ErrorMessage.Text;
+            }
+        }
 
         public string JourneyResultSummaryFromText => JourneyResultSummaryFrom.Text;
 
